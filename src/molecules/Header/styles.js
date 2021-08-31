@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Box } from "@material-ui/core";
 
 const defaultStyles = {
   wrapper: {
@@ -9,6 +10,6 @@ const defaultStyles = {
   text: {},
 };
 
-export const HeaderWrapperFactory = (styles) => styled.div({ ...styles });
+export const HeaderWrapperFactory = (styles) => styled(Box)({ ...styles });
 
 export default defaultStyles;
