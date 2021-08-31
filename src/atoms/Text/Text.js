@@ -4,21 +4,21 @@ import PropTypes from "prop-types";
 
 import defaultStyles, { TextFactory } from "./styles";
 
-const Text = ({ styles, payload }) => {
+const Text = ({ styles, children }) => {
   const finalStyles = merge(defaultStyles, styles);
   const TextComponent = TextFactory(finalStyles);
 
-  return <TextComponent>{payload}</TextComponent>;
+  return <TextComponent>{children}</TextComponent>;
 };
 
 Text.defaultProps = {
   styles: {},
-  payload: "",
+  children: "",
 };
 
 Text.propTypes = {
-  styles: PropTypes.objectOf(PropTypes.object),
-  payload: PropTypes.string,
+  styles: PropTypes.objectOf(PropTypes.string),
+  children: PropTypes.string,
 };
 
 export default Text;

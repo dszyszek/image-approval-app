@@ -13,6 +13,21 @@ const defaultThemeConfig = {
   },
 };
 
+export const headerStyles = {
+  wrapper: {
+    width: "100%",
+    height: "8%",
+    borderRadius: "8px 8px 0px 0px",
+    display: "flex",
+    justifyContent: "flex-start",
+    alignItems: "center",
+  },
+  text: {
+    marginLeft: "10%",
+    fontSize: "18px",
+  },
+};
+
 export const MainBox = withTheme(styled(Box)`
   background-color: ${({ theme }) => theme.custom.background.darkBlue};
   display: flex;
