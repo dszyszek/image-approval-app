@@ -2,24 +2,35 @@ import React from "react";
 import { ThemeProvider } from "@material-ui/core";
 import { createTheme } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
+import merge from "lodash/merge";
 
 import defaultThemeConfig, {
   MainBox,
   PictureTemplateWrapper,
-  headerStyles,
+  headerStylesFactory,
 } from "./styles";
 import { Header } from "../../molecules";
+import { toUpperCase } from "../../utils";
+import { ApprovePictures } from "../../organisms";
 
-const PictureTemplate = ({ themeConfig, data }) => {
-  const theme = createTheme(themeConfig);
+const PictureTemplate = ({ themeConfig, data: { headerText } }) => {
+  const finalTheme = merge(defaultThemeConfig, themeConfig);
+
+  const theme = createTheme(finalTheme);
+  const headerStyles = headerStylesFactory(theme);
+
+  const finalHeaderText = headerText || "Template placeholder text";
+  const finalHeaderTextTransformed = toUpperCase(finalHeaderText);
+
   return (
     <ThemeProvider theme={theme}>
       <MainBox xs={12}>
         <PictureTemplateWrapper>
           <Header
             styles={headerStyles}
-            headerText="IMAGE APPROVAL APPLICATION"
+            headerText={finalHeaderTextTransformed}
           />
+          <ApprovePictures />
         </PictureTemplateWrapper>
       </MainBox>
     </ThemeProvider>
@@ -27,7 +38,7 @@ const PictureTemplate = ({ themeConfig, data }) => {
 };
 
 PictureTemplate.defaultProps = {
-  themeConfig: defaultThemeConfig,
+  themeConfig: {},
   data: {},
 };
 
