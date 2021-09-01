@@ -5,7 +5,7 @@ const defaultStyles = {
   wrapper: {
     width: "100%",
     height: "85%",
-    border: "1px solid green",
+    // border: "1px solid green",
   },
 };
 

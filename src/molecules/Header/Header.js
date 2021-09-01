@@ -1,9 +1,9 @@
 import React from "react";
-import merge from "lodash/merge";
 import PropTypes from "prop-types";
 
 import defaultStyles, { HeaderWrapperFactory } from "./styles";
 import { Text } from "../../atoms";
+import { merge } from "../../utils";
 
 const Header = ({ styles, headerText }) => {
   const { wrapper: wrapperStyles, text: textStyles } = merge(

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Typography } from "@material-ui/core";
 
 const defaultStyles = {
   fontSize: "10px",
@@ -6,7 +7,7 @@ const defaultStyles = {
 };
 
 export const TextFactory = (styles) =>
-  styled.span({
+  styled(Typography)({
     ...styles,
   });
 

@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-import merge from "lodash/merge";
 
 import defaultStyles from "./styles";
+import { merge } from "../../utils";
 
 const PicturesCarousel = ({ styles }) => {
   const finalStyles = merge(defaultStyles, styles);

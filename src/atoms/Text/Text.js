@@ -1,11 +1,12 @@
 import React from "react";
-import merge from "lodash/merge";
 import PropTypes from "prop-types";
 
 import defaultStyles, { TextFactory } from "./styles";
+import { merge } from "../../utils";
 
 const Text = ({ styles, children }) => {
   const finalStyles = merge(defaultStyles, styles);
+  console.log(finalStyles);
   const TextComponent = TextFactory(finalStyles);
 
   return <TextComponent>{children}</TextComponent>;

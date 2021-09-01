@@ -2,15 +2,15 @@ import React from "react";
 import { ThemeProvider } from "@material-ui/core";
 import { createTheme } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
-import merge from "lodash/merge";
 
 import defaultThemeConfig, {
   MainBox,
   PictureTemplateWrapper,
   headerStylesFactory,
+  approvePicturesStylesFactory,
 } from "./styles";
 import { Header } from "../../molecules";
-import { toUpperCase } from "../../utils";
+import { toUpperCase, merge } from "../../utils";
 import { ApprovePictures } from "../../organisms";
 
 const PictureTemplate = ({ themeConfig, data: { headerText } }) => {
@@ -18,6 +18,7 @@ const PictureTemplate = ({ themeConfig, data: { headerText } }) => {
 
   const theme = createTheme(finalTheme);
   const headerStyles = headerStylesFactory(theme);
+  const approvePicturesStyles = approvePicturesStylesFactory(theme);
 
   const finalHeaderText = headerText || "Template placeholder text";
   const finalHeaderTextTransformed = toUpperCase(finalHeaderText);
@@ -30,7 +31,10 @@ const PictureTemplate = ({ themeConfig, data: { headerText } }) => {
             styles={headerStyles}
             headerText={finalHeaderTextTransformed}
           />
-          <ApprovePictures />
+          <ApprovePictures
+            styles={approvePicturesStyles}
+            // title="approved images (0)"
+          />
         </PictureTemplateWrapper>
       </MainBox>
     </ThemeProvider>

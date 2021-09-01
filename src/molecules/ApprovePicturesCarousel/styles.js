@@ -5,8 +5,9 @@ const defaultStyles = {
   wrapper: {
     width: "100%",
     height: "20%",
-    border: "1px solid red",
   },
+  text: {},
+  picturesCarousel: {},
 };
 
 export const wrapperFactory = (styles) =>
