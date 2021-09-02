@@ -2,11 +2,11 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import defaultStyles, { wrapperFactory } from "./styles";
-import { ApprovePicturesCarousel } from "../../molecules";
+import { ApprovePicturesThumbnail, ApprovePicturesBody } from "../../molecules";
 import { toUpperCase, merge } from "../../utils";
 import { DEFAULT_TITLE } from "./constants";
 
-const ApprovePictures = ({ styles, title }) => {
+const ApprovePictures = ({ styles, title, carouselImages }) => {
   const { wrapper: wrapperStyles, carousel: carouselStyles } = merge(
     defaultStyles,
     styles,
@@ -17,10 +17,12 @@ const ApprovePictures = ({ styles, title }) => {
 
   return (
     <Wrapper>
-      <ApprovePicturesCarousel
+      <ApprovePicturesThumbnail
         styles={carouselStyles}
         approvedPicturesTitle={approvedPicturesTitle}
+        images={carouselImages}
       />
+      <ApprovePicturesBody />
     </Wrapper>
   );
 };
@@ -28,6 +30,7 @@ const ApprovePictures = ({ styles, title }) => {
 ApprovePictures.defaultProps = {
   styles: {},
   title: DEFAULT_TITLE,
+  carouselImages: [],
 };
 ApprovePictures.propTypes = {
   styles: PropTypes.shape({
@@ -35,5 +38,6 @@ ApprovePictures.propTypes = {
     carouselStyles: PropTypes.objectOf(PropTypes.string),
   }),
   title: PropTypes.string,
+  carouselImages: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)),
 };
 export default ApprovePictures;

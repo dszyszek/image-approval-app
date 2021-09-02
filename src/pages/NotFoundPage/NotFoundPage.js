@@ -1,4 +1,6 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
 
-export default () => <Redirect to="/" />;
+import { BASE_ROUTE } from "../../constants";
+
+export default () => <Redirect to={BASE_ROUTE} />;
