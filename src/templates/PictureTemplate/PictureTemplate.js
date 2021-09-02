@@ -12,16 +12,21 @@ import defaultThemeConfig, {
 import { Header } from "../../molecules";
 import { toUpperCase, merge } from "../../utils";
 import { ApprovePictures } from "../../organisms";
+import { DEFAULT_HEADER_TEXT } from "./constants";
+import "./main.scss";
 
-const PictureTemplate = ({ themeConfig, data: { headerText } }) => {
+const PictureTemplate = ({
+  themeConfig,
+  data: { headerText, carouselImages },
+}) => {
   const finalTheme = merge(defaultThemeConfig, themeConfig);
 
   const theme = createTheme(finalTheme);
   const headerStyles = headerStylesFactory(theme);
   const approvePicturesStyles = approvePicturesStylesFactory(theme);
 
-  const finalHeaderText = headerText || "Template placeholder text";
-  const finalHeaderTextTransformed = toUpperCase(finalHeaderText);
+  const finalHeaderText = headerText || DEFAULT_HEADER_TEXT;
+  const finalheaderTextTransformed = toUpperCase(finalHeaderText);
 
   return (
     <ThemeProvider theme={theme}>
@@ -29,11 +34,12 @@ const PictureTemplate = ({ themeConfig, data: { headerText } }) => {
         <PictureTemplateWrapper>
           <Header
             styles={headerStyles}
-            headerText={finalHeaderTextTransformed}
+            headerText={finalheaderTextTransformed}
           />
           <ApprovePictures
             styles={approvePicturesStyles}
             // title="approved images (0)"
+            carouselImages={carouselImages}
           />
         </PictureTemplateWrapper>
       </MainBox>
@@ -43,12 +49,18 @@ const PictureTemplate = ({ themeConfig, data: { headerText } }) => {
 
 PictureTemplate.defaultProps = {
   themeConfig: {},
-  data: {},
+  data: {
+    headerText: DEFAULT_HEADER_TEXT,
+    carouselImages: [],
+  },
 };
 
 PictureTemplate.propTypes = {
   themeConfig: PropTypes.objectOf(PropTypes.object),
-  data: PropTypes.objectOf(PropTypes.object),
+  data: PropTypes.shape({
+    carouselImages: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)),
+    headerText: PropTypes.string,
+  }),
 };
 
 export default PictureTemplate;

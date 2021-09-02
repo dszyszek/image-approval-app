@@ -2,7 +2,12 @@ import { Box } from "@material-ui/core";
 import { withTheme } from "@material-ui/core/styles";
 import styled from "styled-components";
 
-import { MARGIN_LEFT } from "./constants";
+import {
+  APPROVE_PICTURES_PADDING,
+  HEADER_HEIGHT,
+  APPROVE_PICTURES_HEIGHT,
+  FOOTER_HEIGHT,
+} from "./constants";
 import { toPercentUnit } from "../../utils";
 
 const defaultThemeConfig = {
@@ -19,7 +24,7 @@ const defaultThemeConfig = {
     },
     spacing: {
       marginLeft: {
-        main: toPercentUnit(MARGIN_LEFT),
+        main: toPercentUnit(APPROVE_PICTURES_PADDING),
       },
     },
   },
@@ -28,7 +33,7 @@ const defaultThemeConfig = {
 export const headerStylesFactory = (theme) => ({
   wrapper: {
     width: "100%",
-    height: "8%",
+    height: toPercentUnit(HEADER_HEIGHT),
     borderRadius: "8px 8px 0px 0px",
     display: "flex!important",
     justifyContent: "flex-start!important",
@@ -46,18 +51,24 @@ export const headerStylesFactory = (theme) => ({
 
 export const approvePicturesStylesFactory = (theme) => ({
   wrapper: {
-    display: "flex",
-    justifyContent: "center",
+    paddingLeft: toPercentUnit(APPROVE_PICTURES_PADDING),
+    paddingRight: toPercentUnit(APPROVE_PICTURES_PADDING),
   },
   carousel: {
     wrapper: {
       borderBottom: `1px solid ${theme.custom.border.lightGrey}`,
       // 100% - margin for each side
-      width: toPercentUnit(100 - 2 * MARGIN_LEFT),
+      width: "100%",
+      height: "30%",
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "flex-start",
     },
     text: {
       wrapper: {
-        margin: "30px 0 15px 0",
+        margin: "25px 0 15px 0",
+        width: "100%",
       },
       text: {
         fontSize: "15px!important",
@@ -66,6 +77,12 @@ export const approvePicturesStylesFactory = (theme) => ({
       },
     },
     picturesCarousel: {},
+    picturesCarouselWrapper: {
+      width: "100%",
+      height: "40%",
+      display: "flex",
+      alignItems: "center",
+    },
   },
 });
 
@@ -79,7 +96,7 @@ export const MainBox = withTheme(styled(Box)`
 
 export const PictureTemplateWrapper = withTheme(styled(Box)`
   width: 25%;
-  height: 85%;
+  height: ${toPercentUnit(APPROVE_PICTURES_HEIGHT)};
   background-color: ${({ theme }) => theme.custom.background.main};
   display: flex;
   flex-direction: column;
