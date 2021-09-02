@@ -8,10 +8,17 @@ import noop from "lodash/noop";
 
 import { stylesTemplate } from "./styles";
 
-const Clickable = ({ styles: passedStyles, children, onClick }) => {
+const Clickable = ({
+  styles: passedStyles,
+  children,
+  onClick,
+  draggable: passedDraggable,
+}) => {
   const styles = stylesTemplate(passedStyles);
+  const draggable = !!passedDraggable;
+
   return (
-    <div style={styles} onClick={onClick}>
+    <div style={styles} onClick={onClick} draggable={draggable}>
       {children}
     </div>
   );
@@ -21,12 +28,14 @@ Clickable.defaultProps = {
   styles: {},
   children: [],
   onClick: noop,
+  draggable: false,
 };
 
 Clickable.propTypes = {
   styles: PropTypes.objectOf(PropTypes.string),
   children: PropTypes.arrayOf(PropTypes.object),
   onClick: PropTypes.func,
+  draggable: PropTypes.bool,
 };
 
 export default Clickable;

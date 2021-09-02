@@ -9,6 +9,8 @@ const defaultStyles = {
 export const restrictedStyles = {
   border: "unset",
   cursor: "pointer",
+  userSelect: "none",
+  userDrag: "none",
 };
 
 export const stylesTemplate = (styles) => ({
