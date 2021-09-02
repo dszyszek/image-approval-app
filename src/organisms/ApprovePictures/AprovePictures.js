@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import defaultStyles, { wrapperFactory } from "./styles";
-import { ApprovePicturesThumbnail, ApprovePicturesBody } from "../../molecules";
+import { LabeledThumbnailSlider, ApprovePicturesBody } from "../../molecules";
 import { toUpperCase, merge } from "../../utils";
 import { DEFAULT_TITLE } from "./constants";
 
@@ -17,7 +17,7 @@ const ApprovePictures = ({ styles, title, carouselImages }) => {
 
   return (
     <Wrapper>
-      <ApprovePicturesThumbnail
+      <LabeledThumbnailSlider
         styles={carouselStyles}
         approvedPicturesTitle={approvedPicturesTitle}
         images={carouselImages}

@@ -1,4 +1,4 @@
 export { Header } from "./Header";
-export { PicturesCarousel } from "./PicturesCarousel";
-export { ApprovePicturesThumbnail } from "./ApprovePicturesThumbnail";
+export { PicturesCarousel } from "../atoms/PicturesCarousel";
+export { LabeledThumbnailSlider } from "./LabeledThumbnailSlider";
 export { ApprovePicturesBody } from "./ApprovePicturesBody";
