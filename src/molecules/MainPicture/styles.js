@@ -5,7 +5,6 @@ const defaultStyles = {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    border: "1px solid red",
   },
   img: { width: "100%", height: "100%" },
 };
