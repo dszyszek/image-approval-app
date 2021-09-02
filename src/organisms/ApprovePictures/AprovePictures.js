@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import defaultStyles, { wrapperFactory } from "./styles";
-import { LabeledThumbnailSlider, ApprovePicturesBody } from "../../molecules";
+import { LabeledThumbnailSlider, MainPicture } from "../../molecules";
 import { toUpperCase, merge } from "../../utils";
 import { DEFAULT_TITLE } from "./constants";
 
@@ -22,7 +22,7 @@ const ApprovePictures = ({ styles, title, carouselImages }) => {
         approvedPicturesTitle={approvedPicturesTitle}
         images={carouselImages}
       />
-      <ApprovePicturesBody />
+      <MainPicture />
     </Wrapper>
   );
 };
