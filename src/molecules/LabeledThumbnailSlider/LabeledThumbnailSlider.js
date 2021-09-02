@@ -1,10 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import defaultStyles, { wrapperFactory, defaultImageStyles } from "./styles";
+import defaultStyles, { defaultImageStyles } from "./styles";
 import { Text, Image } from "../../atoms";
 import { PicturesCarousel } from "..";
-import { merge } from "../../utils";
+import { merge, wrapperFactory } from "../../utils";
 
 const LabeledThumbnailSlider = ({ styles, approvedPicturesTitle, images }) => {
   const {

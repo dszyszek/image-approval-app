@@ -1,16 +1,22 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import defaultStyles, { wrapperFactory } from "./styles";
-import { LabeledThumbnailSlider, MainPicture } from "../../molecules";
-import { toUpperCase, merge } from "../../utils";
+import defaultStyles from "./styles";
+import {
+  LabeledThumbnailSlider,
+  MainPicture,
+  ConditionalLogicalButtons,
+} from "../../molecules";
+import { toUpperCase, merge, wrapperFactory } from "../../utils";
 import { DEFAULT_TITLE } from "./constants";
 
 const ApprovePictures = ({ styles, title, carouselImages }) => {
-  const { wrapper: wrapperStyles, carousel: carouselStyles } = merge(
-    defaultStyles,
-    styles,
-  );
+  const {
+    wrapper: wrapperStyles,
+    carousel: carouselStyles,
+    mainPicture: mainPictureStyles,
+    conditionalLogicalButtons: conditionalLogicalButtonsStyles,
+  } = merge(defaultStyles, styles);
   const Wrapper = wrapperFactory(wrapperStyles);
 
   const approvedPicturesTitle = toUpperCase(title);
@@ -22,7 +28,8 @@ const ApprovePictures = ({ styles, title, carouselImages }) => {
         approvedPicturesTitle={approvedPicturesTitle}
         images={carouselImages}
       />
-      <MainPicture />
+      <MainPicture styles={mainPictureStyles} />
+      <ConditionalLogicalButtons styles={conditionalLogicalButtonsStyles} />
     </Wrapper>
   );
 };
@@ -36,6 +43,8 @@ ApprovePictures.propTypes = {
   styles: PropTypes.shape({
     wrapper: PropTypes.objectOf(PropTypes.string),
     carouselStyles: PropTypes.objectOf(PropTypes.string),
+    mainPicture: PropTypes.objectOf(PropTypes.string),
+    conditionalLogicalButtons: PropTypes.objectOf(PropTypes.string),
   }),
   title: PropTypes.string,
   carouselImages: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)),

@@ -1,6 +1,3 @@
-import styled from "styled-components";
-import { Box } from "@material-ui/core";
-
 const defaultStyles = {
   wrapper: {
     width: "100%",
@@ -21,10 +18,5 @@ export const defaultImageStyles = {
   },
   img: { width: "50%", height: "50%", fill: "#d5d9e0" },
 };
-
-export const wrapperFactory = (styles) =>
-  styled(Box)({
-    ...styles,
-  });
 
 export default defaultStyles;

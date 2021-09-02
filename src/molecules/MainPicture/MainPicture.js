@@ -2,12 +2,13 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import defaultStyles from "./styles";
-import { merge } from "../../utils";
+import { merge, wrapperFactory } from "../../utils";
 
 const MainPicture = ({ styles }) => {
   const { wrapper: wrapperStyles } = merge(defaultStyles, styles);
+  const Wrapper = wrapperFactory(wrapperStyles);
 
-  return <div style={wrapperStyles}>MainPicture</div>;
+  return <Wrapper>MainPicture</Wrapper>;
 };
 
 MainPicture.defaultProps = {

@@ -57,9 +57,8 @@ export const approvePicturesStylesFactory = (theme) => ({
   carousel: {
     wrapper: {
       borderBottom: `1px solid ${theme.custom.border.lightGrey}`,
-      // 100% - margin for each side
       width: "100%",
-      height: "30%",
+      flex: 0.75,
       display: "flex",
       flexDirection: "column",
       alignItems: "center",
@@ -82,6 +81,16 @@ export const approvePicturesStylesFactory = (theme) => ({
       height: "40%",
       display: "flex",
       alignItems: "center",
+    },
+  },
+  mainPicture: {
+    wrapper: {
+      flex: 2.25,
+    },
+  },
+  conditionalLogicalButtons: {
+    wrapper: {
+      flex: 0.5,
     },
   },
 });

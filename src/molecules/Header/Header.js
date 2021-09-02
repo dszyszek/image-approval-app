@@ -1,16 +1,16 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import defaultStyles, { HeaderWrapperFactory } from "./styles";
+import defaultStyles from "./styles";
 import { Text } from "../../atoms";
-import { merge } from "../../utils";
+import { merge, wrapperFactory } from "../../utils";
 
 const Header = ({ styles, headerText }) => {
   const { wrapper: wrapperStyles, text: textStyles } = merge(
     defaultStyles,
     styles,
   );
-  const HeaderWrapper = HeaderWrapperFactory(wrapperStyles);
+  const HeaderWrapper = wrapperFactory(wrapperStyles);
 
   return (
     <HeaderWrapper>
