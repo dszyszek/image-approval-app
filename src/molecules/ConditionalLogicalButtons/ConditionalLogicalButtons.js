@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import noop from "lodash/noop";
 
 import defaultStyles from "./styles";
 import { merge, wrapperFactory } from "../../utils";
@@ -27,8 +28,8 @@ const ConditionalLogicalButtons = ({
 ConditionalLogicalButtons.defaultProps = {
   styles: {},
   condition: false,
-  onApprove: () => {},
-  onReject: () => {},
+  onApprove: noop,
+  onReject: noop,
   isFalseMessage: "",
 };
 

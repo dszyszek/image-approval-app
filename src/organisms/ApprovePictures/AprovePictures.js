@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import noop from "lodash/noop";
 
 import defaultStyles from "./styles";
 import {
@@ -10,7 +11,13 @@ import {
 import { toUpperCase, merge, wrapperFactory } from "../../utils";
 import { DEFAULT_TITLE } from "./constants";
 
-const ApprovePictures = ({ styles, title, carouselImages }) => {
+const ApprovePictures = ({
+  styles,
+  title,
+  carouselImages,
+  mainPicture,
+  onMainPictureClick,
+}) => {
   const {
     wrapper: wrapperStyles,
     carousel: carouselStyles,
@@ -28,7 +35,11 @@ const ApprovePictures = ({ styles, title, carouselImages }) => {
         approvedPicturesTitle={approvedPicturesTitle}
         images={carouselImages}
       />
-      <MainPicture styles={mainPictureStyles} />
+      <MainPicture
+        onClick={onMainPictureClick}
+        picture={mainPicture}
+        styles={mainPictureStyles}
+      />
       <ConditionalLogicalButtons styles={conditionalLogicalButtonsStyles} />
     </Wrapper>
   );
@@ -38,6 +49,8 @@ ApprovePictures.defaultProps = {
   styles: {},
   title: DEFAULT_TITLE,
   carouselImages: [],
+  mainPicture: {},
+  onMainPictureClick: undefined,
 };
 ApprovePictures.propTypes = {
   styles: PropTypes.shape({
@@ -48,5 +61,10 @@ ApprovePictures.propTypes = {
   }),
   title: PropTypes.string,
   carouselImages: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)),
+  mainPicture: PropTypes.shape({
+    src: PropTypes.string,
+    alt: PropTypes.string,
+  }),
+  onMainPictureClick: PropTypes.func,
 };
 export default ApprovePictures;

@@ -4,11 +4,11 @@ const defaultStyles = {
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
+  cursor: "pointer",
+  border: "unset",
 };
 
 export const restrictedStyles = {
-  border: "unset",
-  cursor: "pointer",
   userSelect: "none",
   userDrag: "none",
 };
