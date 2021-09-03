@@ -6,7 +6,6 @@ import { merge } from "../../utils";
 
 const Text = ({ styles, children }) => {
   const finalStyles = merge(defaultStyles, styles);
-  console.log(finalStyles);
   const TextComponent = TextFactory(finalStyles);
 
   return <TextComponent>{children}</TextComponent>;

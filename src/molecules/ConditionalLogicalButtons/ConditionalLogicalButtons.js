@@ -4,6 +4,7 @@ import noop from "lodash/noop";
 
 import defaultStyles from "./styles";
 import { merge, wrapperFactory } from "../../utils";
+import { Button, Text } from "../../atoms";
 
 const ConditionalLogicalButtons = ({
   styles,
@@ -16,21 +17,19 @@ const ConditionalLogicalButtons = ({
     defaultStyles,
     styles,
   );
-  const Wrapper = wrapperFactory(wrapperStyles);
+  const MainWrapper = wrapperFactory(wrapperStyles);
   const content = condition ? (
-    <div>
-      <button type="button" onClick={onReject}>
-        Reject
-      </button>
-      <button type="button" onClick={onApprove}>
-        Approve
-      </button>
+    <div style={{}}>
+      <Button onClick={onReject} text="Reject" />
+      <Button onClick={onApprove} text="Approve" />
     </div>
   ) : (
-    <div>{isFalseMessage}</div>
+    <div>
+      <Text>{isFalseMessage}</Text>
+    </div>
   );
 
-  return <Wrapper>{content}</Wrapper>;
+  return <MainWrapper>{content}</MainWrapper>;
 };
 
 ConditionalLogicalButtons.defaultProps = {
