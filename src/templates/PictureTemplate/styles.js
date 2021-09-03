@@ -55,6 +55,7 @@ export const approvePicturesStylesFactory = (theme) => ({
   wrapper: {
     paddingLeft: toPercentUnit(APPROVE_PICTURES_PADDING),
     paddingRight: toPercentUnit(APPROVE_PICTURES_PADDING),
+    height: toPercentUnit(APPROVE_PICTURES_HEIGHT),
   },
   carousel: {
     wrapper: {
@@ -96,11 +97,11 @@ export const approvePicturesStylesFactory = (theme) => ({
         width: "100%",
         backgroundColor: "#e6eaf0",
         border: "1px solid #d5d9e0",
-        borderRadius: "5px",
+        borderRadius: "8px",
       },
       img: {
         width: "100%",
-        borderRadius: "5px",
+        borderRadius: "8px",
       },
     },
   },
@@ -127,6 +128,15 @@ export const approvePicturesStylesFactory = (theme) => ({
       color: theme.custom.font.grey,
     },
     messageWrapper: {},
+  },
+});
+
+export const footerStylesFactory = (theme) => ({
+  wrapper: {
+    width: "100%",
+    height: toPercentUnit(FOOTER_HEIGHT),
+    borderRadius: "0 0 8px 8px",
+    backgroundColor: theme.custom.background.main,
   },
 });
 

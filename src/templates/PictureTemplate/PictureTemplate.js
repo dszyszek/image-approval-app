@@ -11,8 +11,9 @@ import defaultThemeConfig, {
   PictureTemplateWrapper,
   headerStylesFactory,
   approvePicturesStylesFactory,
+  footerStylesFactory,
 } from "./styles";
-import { Header } from "../../molecules";
+import { Header, Footer } from "../../molecules";
 import { toUpperCase, merge } from "../../utils";
 import { ApprovePictures } from "../../organisms";
 import {
@@ -41,6 +42,7 @@ const PictureTemplate = ({
   const theme = createTheme(finalTheme);
   const headerStyles = headerStylesFactory(theme);
   const approvePicturesStyles = approvePicturesStylesFactory(theme);
+  const footerStyles = footerStylesFactory(theme);
 
   const finalHeaderText = headerText || DEFAULT_HEADER_TEXT;
   const finalheaderTextTransformed = toUpperCase(finalHeaderText);
@@ -74,6 +76,7 @@ const PictureTemplate = ({
             buttonOnApproveLabel={buttonOnApproveLabel}
             buttonOnRejectLabel={buttonOnRejectLabel}
           />
+          <Footer styles={footerStyles} />
         </PictureTemplateWrapper>
       </MainBox>
     </ThemeProvider>
