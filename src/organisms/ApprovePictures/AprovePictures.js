@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import noop from "lodash/noop";
 
 import defaultStyles from "./styles";
 import {
