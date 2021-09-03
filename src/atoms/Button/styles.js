@@ -1,12 +1,13 @@
 import styled from "styled-components";
-import { Button } from "@material-ui/core";
+import Button from "@material-ui/core/Button";
 
 const defaultStyles = {
   fontSize: "10px",
-  color: "black",
+  background: "#ff7878!important",
+  borderRadius: "10px!important",
 };
 
-export const ButtonFactory = (styles) =>
+export const buttonFactory = (styles) =>
   styled(Button)({
     ...styles,
   });

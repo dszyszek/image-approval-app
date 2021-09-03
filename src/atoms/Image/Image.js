@@ -27,7 +27,10 @@ const Image = ({ src, alt, styles, draggable }) => {
 };
 
 Image.defaultProps = {
-  styles: {},
+  styles: {
+    wrapper: {},
+    img: {},
+  },
   src: "",
   alt: DEFAULT_ALT,
   draggable: false,

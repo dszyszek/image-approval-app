@@ -1,29 +1,29 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import defaultStyles, { ButtonFactory } from "./styles";
+import defaultStyles, { buttonFactory } from "./styles";
 import { merge } from "../../utils";
 
-const Button = ({ styles, text, onClick }) => {
+const Button = ({ styles, children, onClick }) => {
   const finalStyles = merge(defaultStyles, styles);
-  const ButtonComponent = ButtonFactory(finalStyles);
+  const ButtonComponent = buttonFactory(finalStyles);
 
   return (
     <ButtonComponent type="button" onClick={onClick}>
-      {text}
+      {children}
     </ButtonComponent>
   );
 };
 
 Button.defaultProps = {
   styles: {},
-  text: "",
+  children: [],
   onClick: undefined,
 };
 
 Button.propTypes = {
   styles: PropTypes.objectOf(PropTypes.string),
-  text: PropTypes.string,
+  children: PropTypes.objectOf(PropTypes.array),
   onClick: PropTypes.func,
 };
 
