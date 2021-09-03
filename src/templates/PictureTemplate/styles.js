@@ -66,7 +66,7 @@ export const approvePicturesStylesFactory = (theme) => ({
     },
     text: {
       wrapper: {
-        margin: "25px 0 15px 0",
+        margin: "20px 0 15px 0",
         width: "100%",
       },
       text: {
@@ -85,12 +85,26 @@ export const approvePicturesStylesFactory = (theme) => ({
   },
   mainPicture: {
     wrapper: {
-      flex: 2.25,
+      flex: 2.5,
+      padding: "7% 0",
+      borderBottom: `1px solid ${theme.custom.border.lightGrey}`,
+    },
+    image: {
+      wrapper: {
+        width: "100%",
+        backgroundColor: "#e6eaf0",
+        border: "1px solid #d5d9e0",
+        borderRadius: "5px",
+      },
+      img: {
+        width: "100%",
+        borderRadius: "5px",
+      },
     },
   },
   conditionalLogicalButtons: {
     wrapper: {
-      flex: 0.5,
+      flex: 0.3,
     },
   },
 });

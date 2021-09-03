@@ -2,6 +2,7 @@ import React from "react";
 import { ThemeProvider } from "@material-ui/core";
 import { createTheme } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
+import noop from "lodash/noop";
 
 import defaultThemeConfig, {
   MainBox,
@@ -12,12 +13,15 @@ import defaultThemeConfig, {
 import { Header } from "../../molecules";
 import { toUpperCase, merge } from "../../utils";
 import { ApprovePictures } from "../../organisms";
-import { DEFAULT_HEADER_TEXT } from "./constants";
-import "./main.scss";
+import {
+  DEFAULT_HEADER_TEXT,
+  DEFAULT_THUMBNAIL_GALLERY_TITLE,
+} from "./constants";
 
 const PictureTemplate = ({
   themeConfig,
-  data: { headerText, carouselImages },
+  data: { headerText, carouselImages, mainPicture, thumbnailGalleryLabel },
+  control: { onMainPictureClick },
 }) => {
   const finalTheme = merge(defaultThemeConfig, themeConfig);
 
@@ -27,6 +31,12 @@ const PictureTemplate = ({
 
   const finalHeaderText = headerText || DEFAULT_HEADER_TEXT;
   const finalheaderTextTransformed = toUpperCase(finalHeaderText);
+
+  const finalThumbnailGalleryLabel =
+    thumbnailGalleryLabel || DEFAULT_THUMBNAIL_GALLERY_TITLE;
+  const finalThumbnailGalleryLabelTransformed = toUpperCase(
+    finalThumbnailGalleryLabel,
+  );
 
   return (
     <ThemeProvider theme={theme}>
@@ -38,8 +48,10 @@ const PictureTemplate = ({
           />
           <ApprovePictures
             styles={approvePicturesStyles}
-            // title="approved images (0)"
+            title={finalThumbnailGalleryLabelTransformed}
             carouselImages={carouselImages}
+            mainPicture={mainPicture}
+            onMainPictureClick={onMainPictureClick}
           />
         </PictureTemplateWrapper>
       </MainBox>
@@ -52,6 +64,11 @@ PictureTemplate.defaultProps = {
   data: {
     headerText: DEFAULT_HEADER_TEXT,
     carouselImages: [],
+    mainPicture: {},
+    thumbnailGalleryLabel: DEFAULT_THUMBNAIL_GALLERY_TITLE,
+  },
+  control: {
+    onMainPictureClick: noop,
   },
 };
 
@@ -60,6 +77,14 @@ PictureTemplate.propTypes = {
   data: PropTypes.shape({
     carouselImages: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)),
     headerText: PropTypes.string,
+    mainPicture: PropTypes.shape({
+      src: PropTypes.string,
+      alt: PropTypes.string,
+    }),
+    thumbnailGalleryLabel: PropTypes.string,
+  }),
+  control: PropTypes.shape({
+    onMainPictureClick: PropTypes.func,
   }),
 };
 
