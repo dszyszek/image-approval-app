@@ -12,12 +12,31 @@ const MainPicture = ({ styles, picture, onClick }) => {
     styles,
   );
   const Wrapper = wrapperFactory(wrapperStyles);
+  const finalOnClick = onClick || noop;
+
   const { src, alt } = picture;
+
+  const image = src ? (
+    <Image src={src} alt={alt} styles={imageStyles} />
+  ) : (
+    <Image
+      alt="plus sign"
+      styles={{
+        wrapper: { ...imageStyles.wrapper, width: "30%", border: "unset" },
+      }}
+    />
+  );
 
   return (
     <Wrapper>
-      <Clickable styles={imageStyles.wrapper} onClick={onClick}>
-        <Image src={src} alt={alt} styles={imageStyles} />
+      <Clickable
+        styles={{
+          ...imageStyles.wrapper,
+          cursor: onClick ? "pointer" : "unset",
+        }}
+        onClick={finalOnClick}
+      >
+        {image}
       </Clickable>
     </Wrapper>
   );
@@ -26,7 +45,7 @@ const MainPicture = ({ styles, picture, onClick }) => {
 MainPicture.defaultProps = {
   styles: {},
   picture: {},
-  onClick: noop,
+  onClick: undefined,
 };
 MainPicture.propTypes = {
   styles: PropTypes.shape({
