@@ -33,7 +33,12 @@ const LabeledThumbnailSlider = ({ styles, approvedPicturesTitle, images }) => {
 };
 
 LabeledThumbnailSlider.defaultProps = {
-  styles: {},
+  styles: {
+    wrapper: {},
+    text: { wrapper: {}, text: {} },
+    picturesCarousel: {},
+    picturesCarouselWrapper: {},
+  },
   approvedPicturesTitle: "",
   images: [],
 };

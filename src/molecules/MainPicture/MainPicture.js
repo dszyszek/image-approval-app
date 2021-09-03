@@ -43,7 +43,10 @@ const MainPicture = ({ styles, picture, onClick }) => {
 };
 
 MainPicture.defaultProps = {
-  styles: {},
+  styles: {
+    wrapper: {},
+    image: {},
+  },
   picture: {},
   onClick: undefined,
 };

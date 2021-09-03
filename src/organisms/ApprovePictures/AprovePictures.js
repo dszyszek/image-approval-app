@@ -21,6 +21,8 @@ const ApprovePictures = ({
   buttonsOnApprove,
   buttonsOnReject,
   buttonsIsFalseMessage,
+  buttonOnApproveLabel,
+  buttonOnRejectLabel,
 }) => {
   const {
     wrapper: wrapperStyles,
@@ -50,13 +52,20 @@ const ApprovePictures = ({
         onApprove={buttonsOnApprove}
         onReject={buttonsOnReject}
         isFalseMessage={buttonsIsFalseMessage}
+        buttonOnApproveLabel={buttonOnApproveLabel}
+        buttonOnRejectLabel={buttonOnRejectLabel}
       />
     </Wrapper>
   );
 };
 
 ApprovePictures.defaultProps = {
-  styles: {},
+  styles: {
+    wrapper: {},
+    carousel: {},
+    mainPicture: {},
+    conditionalLogicalButtons: {},
+  },
   title: DEFAULT_TITLE,
   carouselImages: [],
   mainPicture: {},
@@ -64,7 +73,9 @@ ApprovePictures.defaultProps = {
   buttonsCondition: false,
   buttonsOnApprove: undefined,
   buttonsOnReject: undefined,
-  buttonsIsFalseMessage: "",
+  buttonsIsFalseMessage: undefined,
+  buttonOnApproveLabel: undefined,
+  buttonOnRejectLabel: undefined,
 };
 ApprovePictures.propTypes = {
   styles: PropTypes.shape({
@@ -84,5 +95,7 @@ ApprovePictures.propTypes = {
   buttonsOnApprove: PropTypes.func,
   buttonsOnReject: PropTypes.func,
   buttonsIsFalseMessage: PropTypes.string,
+  buttonOnApproveLabel: PropTypes.string,
+  buttonOnRejectLabel: PropTypes.string,
 };
 export default ApprovePictures;
