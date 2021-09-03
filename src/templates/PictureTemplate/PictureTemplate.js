@@ -20,8 +20,19 @@ import {
 
 const PictureTemplate = ({
   themeConfig,
-  data: { headerText, carouselImages, mainPicture, thumbnailGalleryLabel },
-  control: { onMainPictureClick },
+  data: {
+    headerText,
+    carouselImages,
+    mainPicture,
+    thumbnailGalleryLabel,
+    buttonsIsFalseMessage,
+  },
+  control: {
+    onMainPictureClick,
+    buttonsOnReject,
+    buttonsOnApprove,
+    buttonsCondition,
+  },
 }) => {
   const finalTheme = merge(defaultThemeConfig, themeConfig);
 
@@ -52,6 +63,10 @@ const PictureTemplate = ({
             carouselImages={carouselImages}
             mainPicture={mainPicture}
             onMainPictureClick={onMainPictureClick}
+            buttonsIsFalseMessage={buttonsIsFalseMessage}
+            buttonsOnReject={buttonsOnReject}
+            buttonsOnApprove={buttonsOnApprove}
+            buttonsCondition={buttonsCondition}
           />
         </PictureTemplateWrapper>
       </MainBox>
@@ -66,9 +81,13 @@ PictureTemplate.defaultProps = {
     carouselImages: [],
     mainPicture: {},
     thumbnailGalleryLabel: DEFAULT_THUMBNAIL_GALLERY_TITLE,
+    buttonsIsFalseMessage: "",
   },
   control: {
     onMainPictureClick: noop,
+    buttonsOnApprove: undefined,
+    buttonsOnReject: undefined,
+    buttonsCondition: false,
   },
 };
 
@@ -82,9 +101,13 @@ PictureTemplate.propTypes = {
       alt: PropTypes.string,
     }),
     thumbnailGalleryLabel: PropTypes.string,
+    buttonsIsFalseMessage: PropTypes.string,
   }),
   control: PropTypes.shape({
     onMainPictureClick: PropTypes.func,
+    buttonsCondition: PropTypes.bool,
+    buttonsOnApprove: PropTypes.func,
+    buttonsOnReject: PropTypes.func,
   }),
 };
 

@@ -38,6 +38,17 @@ const placeholderHeaderText = "image approval application";
 const onMainPictureClickPlaceholder = () =>
   console.log("onMainPictureClick placeholder");
 
+const placeholderButtonsIsFalseMessage =
+  "Click on the + in order to get image recommendations";
+
+const placeholderButtonsOnReject = () =>
+  console.log("buttonsOnReject placeholder");
+
+const placeholderButtonsOnApprove = () =>
+  console.log("buttonsOnApprove placeholder");
+
+const placeholderButtonsCondition = true;
+
 export default () => {
   const api = new API(UNSPLASH_BASE);
   const data = {
@@ -45,9 +56,13 @@ export default () => {
     carouselImages: placeholderImages,
     mainPicture: placeholderMainImage,
     thumbnailGalleryLabel: placeholderThumbnailGalleryLabel,
+    buttonsIsFalseMessage: placeholderButtonsIsFalseMessage,
   };
   const control = {
     onMainPictureClick: onMainPictureClickPlaceholder,
+    buttonsOnReject: placeholderButtonsOnReject,
+    buttonsOnApprove: placeholderButtonsOnApprove,
+    buttonsCondition: placeholderButtonsCondition,
   };
 
   return <PictureTemplate control={control} data={data} />;

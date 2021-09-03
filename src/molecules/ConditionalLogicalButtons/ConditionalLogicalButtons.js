@@ -17,12 +17,20 @@ const ConditionalLogicalButtons = ({
     styles,
   );
   const Wrapper = wrapperFactory(wrapperStyles);
-
-  return (
-    <Wrapper>
-      <div>ConditionalLogicalButtons</div>
-    </Wrapper>
+  const content = condition ? (
+    <div>
+      <button type="button" onClick={onReject}>
+        Reject
+      </button>
+      <button type="button" onClick={onApprove}>
+        Approve
+      </button>
+    </div>
+  ) : (
+    <div>{isFalseMessage}</div>
   );
+
+  return <Wrapper>{content}</Wrapper>;
 };
 
 ConditionalLogicalButtons.defaultProps = {
