@@ -3,6 +3,8 @@ import { ThemeProvider } from "@material-ui/core";
 import { createTheme } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 import noop from "lodash/noop";
+import DoneIcon from "@material-ui/icons/Done";
+import CloseIcon from "@material-ui/icons/Close";
 
 import defaultThemeConfig, {
   MainBox,
@@ -48,6 +50,8 @@ const PictureTemplate = ({
   const finalThumbnailGalleryLabelTransformed = toUpperCase(
     finalThumbnailGalleryLabel,
   );
+  const buttonOnApproveLabel = <DoneIcon style={{ color: "white" }} />;
+  const buttonOnRejectLabel = <CloseIcon style={{ color: "white" }} />;
 
   return (
     <ThemeProvider theme={theme}>
@@ -67,6 +71,8 @@ const PictureTemplate = ({
             buttonsOnReject={buttonsOnReject}
             buttonsOnApprove={buttonsOnApprove}
             buttonsCondition={buttonsCondition}
+            buttonOnApproveLabel={buttonOnApproveLabel}
+            buttonOnRejectLabel={buttonOnRejectLabel}
           />
         </PictureTemplateWrapper>
       </MainBox>

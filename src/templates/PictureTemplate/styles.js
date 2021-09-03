@@ -15,9 +15,11 @@ const defaultThemeConfig = {
     background: {
       darkBlue: "#3c4fde",
       main: "#f2f2f2",
+      dark: "#4a4a4a",
     },
     font: {
       main: "#3c4fde",
+      grey: "#9c9c9c",
     },
     border: {
       lightGrey: "#e1e1e1",
@@ -85,8 +87,8 @@ export const approvePicturesStylesFactory = (theme) => ({
   },
   mainPicture: {
     wrapper: {
-      flex: 2.5,
-      padding: "7% 0",
+      flex: 2.4,
+      padding: "6% 0",
       borderBottom: `1px solid ${theme.custom.border.lightGrey}`,
     },
     image: {
@@ -105,7 +107,26 @@ export const approvePicturesStylesFactory = (theme) => ({
   conditionalLogicalButtons: {
     wrapper: {
       flex: 0.3,
+      marginTop: "6%",
     },
+    buttonsWrapper: {
+      width: "100%",
+      height: "100%",
+      display: "flex",
+      justifyContent: "space-between",
+    },
+    button: {
+      reject: {
+        backgroundColor: `${theme.custom.background.dark}!important`,
+      },
+      approve: {
+        backgroundColor: `${theme.custom.background.darkBlue}!important`,
+      },
+    },
+    text: {
+      color: theme.custom.font.grey,
+    },
+    messageWrapper: {},
   },
 });
 
