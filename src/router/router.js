@@ -1,18 +1,24 @@
 import React from "react";
 import { BrowserRouter, Switch } from "react-router-dom";
+import { Provider } from "react-redux";
 
-import { PicturePage, NotFound } from "../pages";
+import { pages } from "../pages";
 import { routesFactory } from "./utils";
+import { store } from "../redux";
+
+const { PicturePage, NotFoundPage } = pages;
 
 const routesConfig = [
   { path: "/", component: PicturePage, exact: true, key: 1 },
-  { component: NotFound, key: 2 },
+  { component: NotFoundPage, key: 2 },
 ];
 
 const routes = routesFactory(routesConfig);
 
 export default () => (
-  <BrowserRouter>
-    <Switch>{routes}</Switch>
-  </BrowserRouter>
+  <Provider store={store}>
+    <BrowserRouter>
+      <Switch>{routes}</Switch>
+    </BrowserRouter>
+  </Provider>
 );
