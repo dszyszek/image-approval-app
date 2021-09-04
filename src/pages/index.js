@@ -1,10 +1,25 @@
-import { combineReducers } from "redux";
+import {
+  page as PicturePage,
+  name as PicturePageName,
+  reducers as PicturePageReducers,
+} from "./PicturePage";
+import {
+  page as NotFoundPage,
+  name as NotFoundPageName,
+  reducers as NotFoundPageReducers,
+} from "./NotFoundPage";
 
-import { reducers as picturePageReducers } from "./PicturePage";
+// All pages' reducers
+export const reducers = {
+  [PicturePageName]: PicturePageReducers,
+  [NotFoundPageName]: NotFoundPageReducers,
+};
 
-export { PicturePage } from "./PicturePage";
-export { default as NotFound } from "./NotFoundPage";
+// All pages' names
+export const names = [PicturePageName, NotFoundPageName];
 
-export const reducers = combineReducers({
-  ...picturePageReducers,
-});
+// All pages
+export const pages = {
+  [PicturePageName]: PicturePage,
+  [NotFoundPageName]: NotFoundPage,
+};

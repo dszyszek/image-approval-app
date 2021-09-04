@@ -1,2 +1,5 @@
-export { default as reducers } from "./reducers";
-export { default as PicturePage } from "./PicturePage";
+import reducers from "./reducers";
+import PicturePage from "./PicturePage";
+import { PICTURE_PAGE_NAME } from "./constants";
+
+export { PicturePage as page, PICTURE_PAGE_NAME as name, reducers };
