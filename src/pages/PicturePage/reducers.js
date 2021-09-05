@@ -1,4 +1,4 @@
-import { PICTURE_PAGE_NAME } from "./constants";
+import { APPROVE_PICTURE, REJECT_PICTURE } from "./constants";
 
 export const initialState = {
   approved: [],
@@ -7,12 +7,12 @@ export const initialState = {
 
 function picturePageReducer(state = initialState, action) {
   switch (action.type) {
-    case `${PICTURE_PAGE_NAME}__PUSH_APPROVED`:
+    case APPROVE_PICTURE:
       return {
         ...state,
         approved: [...state.approved, action.payload],
       };
-    case `${PICTURE_PAGE_NAME}__PUSH_REJECTED`:
+    case REJECT_PICTURE:
       return {
         ...state,
         rejected: [...state.rejected, action.payload],
