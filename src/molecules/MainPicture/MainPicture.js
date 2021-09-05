@@ -14,10 +14,10 @@ const MainPicture = ({ styles, picture, onClick }) => {
   const Wrapper = wrapperFactory(wrapperStyles);
   const finalOnClick = onClick || noop;
 
-  const { src, alt } = picture;
+  const { url, alt } = picture;
 
-  const image = src ? (
-    <Image src={src} alt={alt} styles={imageStyles} />
+  const image = url ? (
+    <Image src={url} alt={alt} styles={imageStyles} />
   ) : (
     <Image
       alt="plus sign"
@@ -56,7 +56,7 @@ MainPicture.propTypes = {
     image: PropTypes.objectOf(PropTypes.string),
   }),
   picture: PropTypes.shape({
-    src: PropTypes.string,
+    url: PropTypes.string,
     alt: PropTypes.string,
   }),
   onClick: PropTypes.func,

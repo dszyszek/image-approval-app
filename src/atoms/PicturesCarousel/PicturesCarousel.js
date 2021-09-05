@@ -15,7 +15,7 @@ const PicturesCarousel = ({ styles, items, sliderOptions }) => {
 
   return (
     <Splide options={finalSliderOptions}>
-      {items.map(([url, alt]) => (
+      {items.map(({ url, alt }) => (
         <SplideSlide key={alt}>
           <img src={url} alt={alt} />
         </SplideSlide>

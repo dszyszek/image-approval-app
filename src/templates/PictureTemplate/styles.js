@@ -91,6 +91,7 @@ export const approvePicturesStylesFactory = (theme) => ({
       flex: 2.4,
       padding: "6% 0",
       borderBottom: `1px solid ${theme.custom.border.lightGrey}`,
+      maxHeight: "430px",
     },
     image: {
       wrapper: {

@@ -1,1 +1,2 @@
-export { default as API } from "./api";
+export { API } from "./API";
+export { UnsplashAPI } from "./API";
