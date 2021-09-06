@@ -1,13 +1,15 @@
-/* eslint no-await-in-loop: 0 */
-
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-
 import { UnsplashAPI } from "../../services";
-import { unsplashApiReduxActionsFactory } from "../../redux/actions";
 import { PictureTemplate } from "../../templates";
-import { extractRelevantFromUnsplashRespone } from "../../utils";
-import { approvePicture, rejectPicture } from "./actions";
+import { getApprovablePhoto } from "../../utils";
+import {
+  approvePicture,
+  rejectPicture,
+  changeMainPicture,
+  setActionButtonsVisibility,
+  setMainPictureClickable,
+} from "./actions";
 import {
   PICTURE_PAGE_NAME,
   BUTTON_IS_FALSE_MESSAGE,
@@ -15,78 +17,69 @@ import {
 } from "./constants";
 
 export default () => {
-  // control
   const api = new UnsplashAPI();
-  const unsplashApiActions = unsplashApiReduxActionsFactory(api);
   const dispatch = useDispatch();
-  const approvedPictures = useSelector(
+
+  // selectors
+  const approvedPicturesSelector = useSelector(
     (state) => state[PICTURE_PAGE_NAME].approved,
   );
-  const rejectedPictures = useSelector(
+  const rejectedPicturesSelector = useSelector(
     (state) => state[PICTURE_PAGE_NAME].rejected,
   );
-  const thumbnailGalleryLabel = `approved images (${approvedPictures.length})`;
+  const mainPicturesSelector = useSelector(
+    (state) => state[PICTURE_PAGE_NAME].mainPicture,
+  );
+  const actionButtonsVisibleSelector = useSelector(
+    (state) => state[PICTURE_PAGE_NAME].actionButtonsVisible,
+  );
+  const mainPictureClickableSelector = useSelector(
+    (state) => state[PICTURE_PAGE_NAME].mainPictureClickable,
+  );
+  const thumbnailGalleryLabel = `approved images (${approvedPicturesSelector.length})`;
 
-  // local state
-  const [buttonsCondition, setButtonsCondition] = useState(false);
-  const [shouldMainPictureBeClickable, setShouldMainPictureBeClickable] =
-    useState(true);
-  const [mainPicture, setMainPicture] = useState({});
-  const [currentPictureResponse, setCurrentPictureResponse] = useState({});
+  // local variables
+  const rejectedIDs = rejectedPicturesSelector.map((pic) => pic.id);
+  const approvedIDs = approvedPicturesSelector.map((pic) => pic.id);
+  const excludedIDs = [...rejectedIDs, ...approvedIDs];
 
-  // local functions
-  const pictureSetCommonSideEffects = async () => {
-    const rejectedIDs = rejectedPictures.map((pic) => pic.id);
-
-    let isRejectable = true;
-    let response;
-    while (isRejectable) {
-      response = await api.getRandomPhoto();
-      isRejectable = rejectedIDs.includes(response.response.id);
-    }
-    setCurrentPictureResponse(response.response);
-
-    dispatch(unsplashApiActions.getRandomPhoto(undefined, response));
-    const relevantInfo = extractRelevantFromUnsplashRespone(response.response);
-    setMainPicture({
-      url: relevantInfo.small,
-      alt: relevantInfo.alt,
-    });
-  };
-
+  // component props
   const data = {
     headerText: HEADER_TEXT,
-    carouselImages: approvedPictures.map((image) => ({
+    carouselImages: approvedPicturesSelector.map((image) => ({
       url: image.thumb,
       alt: image.alt,
     })),
-    mainPicture: mainPicture,
+    mainPicture: {
+      url: mainPicturesSelector.small,
+      alt: mainPicturesSelector.alt,
+    },
     thumbnailGalleryLabel,
     buttonsIsFalseMessage: BUTTON_IS_FALSE_MESSAGE,
   };
   const control = {
-    onMainPictureClick: shouldMainPictureBeClickable
-      ? () => {
-          setButtonsCondition(true);
-          setShouldMainPictureBeClickable(false);
-          pictureSetCommonSideEffects();
+    onMainPictureClick: mainPictureClickableSelector
+      ? async () => {
+          dispatch(setActionButtonsVisibility(true));
+          dispatch(setMainPictureClickable(false));
+          const relevantPhotoInfo = await getApprovablePhoto(api, excludedIDs);
+
+          console.log(relevantPhotoInfo, "relevantPhotoInfo");
+
+          dispatch(changeMainPicture(relevantPhotoInfo));
         }
       : undefined,
-    buttonsOnReject: () => {
-      const relevantInfo = extractRelevantFromUnsplashRespone(
-        currentPictureResponse,
-      );
-      dispatch(rejectPicture(relevantInfo));
-      pictureSetCommonSideEffects();
+    buttonsOnReject: async () => {
+      dispatch(rejectPicture(mainPicturesSelector));
+      const relevantPhotoInfo = await getApprovablePhoto(api, excludedIDs);
+      dispatch(changeMainPicture(relevantPhotoInfo));
     },
-    buttonsOnApprove: () => {
-      const relevantInfo = extractRelevantFromUnsplashRespone(
-        currentPictureResponse,
-      );
-      dispatch(approvePicture(relevantInfo));
-      pictureSetCommonSideEffects();
+    buttonsOnApprove: async () => {
+      dispatch(approvePicture(mainPicturesSelector));
+      const relevantPhotoInfo = await getApprovablePhoto(api, excludedIDs);
+      dispatch(changeMainPicture(relevantPhotoInfo));
     },
-    buttonsCondition: buttonsCondition,
+    buttonsCondition: actionButtonsVisibleSelector,
   };
 
   return <PictureTemplate control={control} data={data} />;
