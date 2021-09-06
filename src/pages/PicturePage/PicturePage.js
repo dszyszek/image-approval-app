@@ -63,9 +63,6 @@ export default () => {
           dispatch(setActionButtonsVisibility(true));
           dispatch(setMainPictureClickable(false));
           const relevantPhotoInfo = await getApprovablePhoto(api, excludedIDs);
-
-          console.log(relevantPhotoInfo, "relevantPhotoInfo");
-
           dispatch(changeMainPicture(relevantPhotoInfo));
         }
       : undefined,
