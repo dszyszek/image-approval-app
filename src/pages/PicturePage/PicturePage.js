@@ -1,116 +1,90 @@
+/* eslint no-await-in-loop: 0 */
+
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { UnsplashAPI } from "../../services";
 import { unsplashApiReduxActionsFactory } from "../../redux/actions";
 import { PictureTemplate } from "../../templates";
-import { UNSPLASH_NAME } from "../../constants";
 import { extractRelevantFromUnsplashRespone } from "../../utils";
 import { approvePicture, rejectPicture } from "./actions";
-import { PICTURE_PAGE_NAME } from "./constants";
-
-const placeholderImages = [
-  {
-    url: "https://images.unsplash.com/1/type-away.jpg?q=80&fm=jpg&w=200&fit=max",
-    alt: "placeholder1",
-  },
-  {
-    url: "https://images.unsplash.com/1/type-away.jpg?q=80&fm=jpg&w=200&fit=max",
-    alt: "placeholder2",
-  },
-  // {
-  //   url: "https://images.unsplash.com/1/type-away.jpg?q=80&fm=jpg&w=200&fit=max",
-  //   alt: "placeholder3",
-  // },
-  // {
-  //   url: "https://images.unsplash.com/1/type-away.jpg?q=80&fm=jpg&w=200&fit=max",
-  //   alt: "placeholder4",
-  // },
-  // {
-  //   url: "https://images.unsplash.com/1/type-away.jpg?q=80&fm=jpg&w=200&fit=max",
-  //   alt: "placeholder5",
-  // },
-];
-
-const placeholderMainImage = {
-  url: "https://images.unsplash.com/1/type-away.jpg?q=80&fm=jpg&w=200&fit=max",
-  alt: "placeholder1",
-};
+import {
+  PICTURE_PAGE_NAME,
+  BUTTON_IS_FALSE_MESSAGE,
+  HEADER_TEXT,
+} from "./constants";
 
 export default () => {
   // control
   const api = new UnsplashAPI();
   const unsplashApiActions = unsplashApiReduxActionsFactory(api);
   const dispatch = useDispatch();
-  const pictures = useSelector((state) => state.api[UNSPLASH_NAME].pictures);
   const approvedPictures = useSelector(
     (state) => state[PICTURE_PAGE_NAME].approved,
   );
+  const rejectedPictures = useSelector(
+    (state) => state[PICTURE_PAGE_NAME].rejected,
+  );
   const thumbnailGalleryLabel = `approved images (${approvedPictures.length})`;
-  const buttonsIsFalseMessage =
-    "Click on the + in order to get image recommendations";
-  const headerText = "image approval application";
 
   // local state
   const [buttonsCondition, setButtonsCondition] = useState(false);
   const [shouldMainPictureBeClickable, setShouldMainPictureBeClickable] =
     useState(true);
   const [mainPicture, setMainPicture] = useState({});
-  const [currentPictureRelevantInfo, setCurrentPictureRelevantInfo] = useState(
-    {},
-  );
+  const [currentPictureResponse, setCurrentPictureResponse] = useState({});
+
+  // local functions
+  const pictureSetCommonSideEffects = async () => {
+    const rejectedIDs = rejectedPictures.map((pic) => pic.id);
+
+    let isRejectable = true;
+    let response;
+    while (isRejectable) {
+      response = await api.getRandomPhoto();
+      isRejectable = rejectedIDs.includes(response.response.id);
+    }
+    setCurrentPictureResponse(response.response);
+
+    dispatch(unsplashApiActions.getRandomPhoto(undefined, response));
+    const relevantInfo = extractRelevantFromUnsplashRespone(response.response);
+    setMainPicture({
+      url: relevantInfo.small,
+      alt: relevantInfo.alt,
+    });
+  };
 
   const data = {
-    headerText,
+    headerText: HEADER_TEXT,
     carouselImages: approvedPictures.map((image) => ({
       url: image.thumb,
       alt: image.alt,
     })),
-    // carouselImages: placeholderImages,
     mainPicture: mainPicture,
-    // mainPicture: placeholderMainImage,
     thumbnailGalleryLabel,
-    buttonsIsFalseMessage,
+    buttonsIsFalseMessage: BUTTON_IS_FALSE_MESSAGE,
   };
   const control = {
     onMainPictureClick: shouldMainPictureBeClickable
-      ? async () => {
+      ? () => {
           setButtonsCondition(true);
           setShouldMainPictureBeClickable(false);
-          const { response } = await api.getRandomPhoto();
-          dispatch(unsplashApiActions.getRandomPhoto(response));
-          const relevantInfo = extractRelevantFromUnsplashRespone(response);
-          setCurrentPictureRelevantInfo(relevantInfo);
-          setMainPicture({
-            url: relevantInfo.small,
-            alt: relevantInfo.alt,
-          });
+          pictureSetCommonSideEffects();
         }
       : undefined,
-    buttonsOnReject: async () => {
-      dispatch(rejectPicture(currentPictureRelevantInfo));
-
-      const { response } = await api.getRandomPhoto();
-      dispatch(unsplashApiActions.getRandomPhoto(response));
-      const relevantInfo = extractRelevantFromUnsplashRespone(response);
-      setCurrentPictureRelevantInfo(relevantInfo);
-      setMainPicture({
-        url: relevantInfo.small,
-        alt: relevantInfo.alt,
-      });
+    buttonsOnReject: () => {
+      const relevantInfo = extractRelevantFromUnsplashRespone(
+        currentPictureResponse,
+      );
+      dispatch(rejectPicture(relevantInfo));
+      pictureSetCommonSideEffects();
     },
-    buttonsOnApprove: async () => {
-      // Add additional logic to check if new picture is not already in `rejected` array
-      dispatch(approvePicture(currentPictureRelevantInfo));
-
-      const { response } = await api.getRandomPhoto();
-      dispatch(unsplashApiActions.getRandomPhoto(response));
-      const relevantInfo = extractRelevantFromUnsplashRespone(response);
-      setCurrentPictureRelevantInfo(relevantInfo);
-      setMainPicture({
-        url: relevantInfo.small,
-        alt: relevantInfo.alt,
-      });
+    buttonsOnApprove: () => {
+      const relevantInfo = extractRelevantFromUnsplashRespone(
+        currentPictureResponse,
+      );
+      dispatch(approvePicture(relevantInfo));
+      pictureSetCommonSideEffects();
     },
     buttonsCondition: buttonsCondition,
   };
