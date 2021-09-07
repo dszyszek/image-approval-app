@@ -43,7 +43,7 @@ export default () => {
   const approvedIDs = approvedPicturesSelector.map((pic) => pic.id);
   const excludedIDs = [...rejectedIDs, ...approvedIDs];
 
-  // component props
+  // component's props
   const data = {
     headerText: HEADER_TEXT,
     carouselImages: approvedPicturesSelector.map((image) => ({
